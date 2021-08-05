@@ -1,5 +1,6 @@
 package co.com.choucair.certification.proyectobase.stepdefinitions;
 
+import co.com.choucair.certification.proyectobase.model.AcademyChoucairData;
 import co.com.choucair.certification.proyectobase.questions.Answer;
 import co.com.choucair.certification.proyectobase.task.Login;
 import co.com.choucair.certification.proyectobase.tasks.OpenUp;
@@ -13,6 +14,8 @@ import net.serenitybdd.screenplay.GivenWhenThen;
 import net.serenitybdd.screenplay.actors.OnStage;
 import net.serenitybdd.screenplay.actors.OnlineCast;
 
+import java.util.List;
+
 public class ChoucairAcademyStepDefinitions {
 
     @Before
@@ -21,18 +24,19 @@ public class ChoucairAcademyStepDefinitions {
     }
 
     @Given("^than brandon wants to learn automation at academy choucair$")
-    public void thanBrandonWantsToLearnAutomationAtAcademyChoucair() {
-        OnStage.theActorCalled("brandon") .wasAbleTo(OpenUp.thePage(), (Login.onThePage()));
+    public void thanBrandonWantsToLearnAutomationAtAcademyChoucair(List<AcademyChoucairData> academyChoucairData) {
+        OnStage.theActorCalled("brandon") .wasAbleTo(OpenUp.thePage(),
+                (Login.onThePage(academyChoucairData.get(0).getStrUser(),academyChoucairData.get(0).getStrPassword())));
     }
 
     @When("^he sear for the course (.*) on the choucair academy platform$")
-    public void heSearForTheCourseRecursosAutomatizacionBancolombiaOnTheChoucairAcademyPlatform(String course){
-        OnStage.theActorInTheSpotlight().attemptsTo(Search.the(course) , SearchCoursePage.the(course));
+    public void heSearForTheCourseRecursosAutomatizacionBancolombiaOnTheChoucairAcademyPlatform(List<AcademyChoucairData> academyChoucairData){
+        OnStage.theActorInTheSpotlight().attemptsTo(Search.the(academyChoucairData.get(0).getStrCourse()) , SearchCoursePage.the(academyChoucairData.get(0).getStrCourse()));
     }
 
     @Then("^he finds the course called resources (.*)$")
-    public void heFindsTheCourseCalledResourcesRecursosAutomatizacionBancolombia(String question){
-        OnStage.theActorInTheSpotlight().should(GivenWhenThen.seeThat(Answer.toThe(question)));
+    public void heFindsTheCourseCalledResourcesRecursosAutomatizacionBancolombia(List<AcademyChoucairData> academyChoucairData){
+        OnStage.theActorInTheSpotlight().should(GivenWhenThen.seeThat(Answer.toThe(academyChoucairData.get(0).getStrCourse())));
     }
 
 

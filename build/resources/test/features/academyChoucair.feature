@@ -5,5 +5,11 @@
     @scenario1
     Scenario: Search for automation course
       Given than brandon wants to learn automation at academy choucair
-      When he sear for the course Pruebas AFT Accounting and Financial Testing on the choucair academy platform
-      Then he finds the course called resources Pruebas AFT Accounting and Financial Testing
+      | strUser | strPassword  |
+      | 2728573 | Choucair2021*|
+      When he sear for the course on the choucair academy platform
+      | strCourse              |
+      | Pruebas AFT Accounting and Financial Testing  |
+      Then he finds the course called resources
+      | strCourse               |
+      | Pruebas AFT Accounting and Financial Testing  |
